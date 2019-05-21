@@ -1,0 +1,139 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <title>Order</title>
+        <link href="../style/stylesheet.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Noto+Sans+KR:300" rel="stylesheet">
+        <link href="https://sf.abarba.me/font.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/gh/mailtoharshit/San-Francisco-Font-/sanfrancisco.css" rel="stylesheet">
+        <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase-database.js"></script>
+        <script>
+
+            var config = {
+                apiKey: "AIzaSyAtFYM963b-Xj3mnJtfe4e-d4_l0vQ1QwI",
+                authDomain: "order-5de62.firebaseapp.com",
+                databaseURL: "https://order-5de62.firebaseio.com",
+                projectId: "order-5de62",
+                storageBucket: "order-5de62.appspot.com",
+                messagingSenderId: "436632360400"
+            };
+
+            function getParameterByName(name) {
+                name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+                var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                    results = regex.exec(location.search);
+                return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+            }
+
+            function numFormat(x) {
+                return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            }
+
+            function formatDate(date) {
+                var m = date.getMonth() + 1;
+                var d = date.getDate();
+                var h = date.getHours();
+                var i = date.getMinutes();
+                var s = date.getSeconds();
+                return date.getFullYear()+'/'+(m>9?m:'0'+m)+'/'+(d>9?d:'0'+d)+' '+(h>9?h:'0'+h)+':'+(i>9?i:'0'+i)+':'+(s>9?s:'0'+s);
+            }
+
+            window.onload = function() {
+                firebase.initializeApp(config);
+
+                var time = formatDate(new Date());
+
+                var sum = 0;
+
+                var urlRef = firebase.database().ref().child("menuList");
+
+                var orderdata = '{ "tableNo" : ' + getParameterByName('tableNo') + ', "time" : "' + time + '", ';
+
+                var notidata = "";
+
+                var last = 0;
+                urlRef.once("value", function(snapshot) {
+                    snapshot.forEach(function (childSnapshot) {
+                        var data = childSnapshot.val();
+                        last = data.id;
+
+                        if(getParameterByName("qt" + last) != 0) {
+                            var name = document.createElement("h3");
+                            name.innerText = data.name;
+                            name.className = "name";
+                            var price = document.createElement("h3");
+                            price.innerText = "￦" + numFormat(data.price);
+                            var qt = document.createElement("h3");
+                            qt.innerText = getParameterByName("qt" + last);
+                            qt.className = "quantity";
+
+                            notidata += data.name + " " + getParameterByName("qt" + last) + "개,\n";
+
+                            document.getElementById('list').appendChild(name);
+                            document.getElementById('list').appendChild(price);
+                            document.getElementById('list').appendChild(qt);
+
+                            sum += Number(data.price) * Number(getParameterByName("qt" + last));
+
+                            console.log(sum);
+                            orderdata += '"qt' + last + '" : ' + getParameterByName("qt" + last) + ', ';
+                        }
+                        document.all("sumPrice").innerHTML = "￦" + numFormat(sum);
+                    });
+                    orderdata += '"total" : ' + sum + ' }';
+                    var data = JSON.parse(orderdata);
+                    firebase.database().ref('orderQueue/' + Math.round(+new Date / 1e3)).set(data);
+                    document.all("tableNo").innerHTML = getParameterByName('tableNo') + "번";
+                    document.all("orderTime").innerHTML = time;
+
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "https://fcm.googleapis.com/fcm/send", true);
+                    xhr.setRequestHeader('Content-Type', 'application/json');
+                    xhr.setRequestHeader('Authorization', 'key=AAAAZalRFdA:APA91bGj9GJVQwhD8U-Fv-5x0PoRkVJsK-8CUWuJpmY-wLmuzs3gcizLtYR8femHv9_NGc8Yo4WFoE9fHilsacXRGvI-jTocYcnfoDc8anqFQUhmGMxvhCbrNyyhVKhC9C9nlUE5q3fv');
+                    xhr.send(JSON.stringify({
+                        data: {
+                            title: getParameterByName('tableNo') + "번 테이블 : 새 주문입니다.",
+                            body: notidata.substring(0, notidata.length - 2)
+                        },
+                        to: "/topics/all"
+                    }));
+                });
+            };
+        </script>
+    </head>
+
+    <body>
+        <header class="navbar">
+            <div>
+                <span id="title">주문 완료</span>
+            </div>
+        </header>
+
+        <main>
+            <div class="success">
+                <h1>주문이 완료되었습니다.</h1>
+                <h4>주문 정보</h4>
+                <hr>
+                <div class="list" id="list">
+
+                </div>
+                <hr>
+                <div>
+                    <h3 class="title">합계</h3>
+                    <h3 id="sumPrice"></h3>
+                </div>
+                <hr>
+                <div>
+                    <h3 class="title">테이블</h3>
+                    <h3 id="tableNo"></h3>
+                    <h3 class="title">주문날짜<br>주문시간</h3>
+                    <h3 id="orderTime"></h3>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>

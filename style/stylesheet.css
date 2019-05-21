@@ -1,0 +1,246 @@
+body{
+    padding-top: 4.5em;
+    margin: 0;
+    font-family: 'San Francisco', 'Noto Sans KR', sans-serif;
+    background: #FAFAFA;
+    word-break: keep-all;
+}
+
+main {
+    padding-bottom: 5.5em;
+}
+main div{
+    background: #FFF;
+    border: 1px solid #ccc;
+    border-radius: 0.2em;
+    margin: 1em 1em 0 1em;
+    box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.04);
+    display: grid;
+    grid-template-columns: 0fr 1fr;
+}
+
+main .success{
+    display: inline;
+    text-align: center;
+    padding: 2em;
+}
+
+main .success h4{
+    margin: 2em 0 -0.3em 0;
+    text-align: start;
+    color: #333;
+}
+
+main div .list{
+    border: 0;
+    margin: 0;
+    box-shadow: none;
+    display: grid;
+    grid-template-columns: 1fr 0fr 0fr;
+}
+
+main .success h1{
+    padding: 0.5em;
+}
+
+main .success div h3{
+    text-align: end;
+    line-height: 2.2em;
+}
+
+main .success div .title{
+    text-align: start;
+}
+
+main div .list h3{
+    font-size: 1.1em;
+    line-height: 2.2em;
+    text-align: end;
+}
+
+main div .list .name{
+    text-align: start;
+}
+
+main div .list .quantity{
+    margin: 0 0 0 1em;
+}
+
+main div h3, p {
+    margin: 0;
+    line-height: 1.5em;
+}
+
+.material-icons {
+    vertical-align: text-bottom;
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+    display: inline;
+  }
+
+main div div{
+    border: 0;
+    margin: 0;
+    box-shadow: none;
+    display: grid;
+    grid-template-columns: 1fr 0fr;
+}
+
+header{
+    color: #fff;
+    z-index: 500;
+    font-size: 1.7em;
+    font-weight: 700;
+    font-style: italic;
+    border-bottom: 1px solid #777;
+    padding: 0.3em 1em;
+    margin: 0;
+    background: #2B3042;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+header span{
+    vertical-align: middle;
+    line-height: 1.8em;
+}
+
+header div{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+header i{
+    text-align: right;
+    padding: 0.45em;
+}
+
+.order {
+    color: #fff;
+    font-size: 1.7em;
+    font-weight: 700;
+    font-style: italic;
+    border: 0;
+    padding: 0.3em 0em;
+    margin: 0;
+    background: #2B3042;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25);
+}
+
+.order div{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.order span{
+    vertical-align: middle;
+    line-height: 1.8em;
+    margin: 0 10%;
+}
+
+footer{
+    background: #FFF;
+    border-top: 1px solid #eee;
+    text-align: center;
+    margin-top: 2em;
+    padding: 2em;
+    font: italic;
+}
+
+h1, h2{
+    font-weight: normal;
+    margin: 0.0em;
+}
+
+main{
+    display: grid;
+    /* grid-template-columns: 1fr 1fr; */
+    margin: 0 3%;
+}
+
+.quantity {
+    position: relative;
+    background: rgba(0, 0, 0, 0);
+  }
+  
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button
+  {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  input[type=number]
+  {
+    -moz-appearance: textfield;
+  }
+  
+  .quantity input {
+      background: rgba(0, 0, 0, 0);
+      width: 3em;
+        height: 100%;
+        line-height: 0;
+        display: block;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        font-size: 1.5em;
+        font-weight: bold;
+  }
+  
+  .quantity input:focus {
+    outline: 0;
+  }
+  
+  .quantity-nav {
+    float: left;
+    position: relative;
+    height: auto;
+  }
+  
+  .quantity-button {
+    position: relative;
+    cursor: pointer;
+    /*border-left: 1px solid #ccc;*/
+    width: 1.2em;
+    text-align: center;
+    color: #333;
+    line-height: 2.2em;
+    font-size: 1.5em;
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+  }
+  
+  .quantity-button.quantity-up {
+    position: absolute;
+    height: 50%;
+    top: 0;
+  }
+  
+  .quantity-button.quantity-down {
+    position: absolute;
+    bottom: 0;
+    height: 50%;
+  }

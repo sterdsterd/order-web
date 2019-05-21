@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <title>Order</title>
+        <link href="style/stylesheet.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Noto+Sans+KR:300" rel="stylesheet">
+        <link href="https://sf.abarba.me/font.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/gh/mailtoharshit/San-Francisco-Font-/sanfrancisco.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <header class="navbar">
+            <div>
+                <span id="title">ORDER</span>
+            </div>
+        </header>
+
+        <main id="main"> </main>
+        
+        <button onclick="order()" class="order">
+            <div>
+                <span id="price" style="text-align: left;">￦0</span>
+                <span style="text-align: right;">ORDER</span>
+            </div>
+        </button>
+
+        <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase-storage.js"></script>
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <script type="text/javascript" src="../order/script/notify.min.js"></script>
+        <script type="text/javascript" src="../order/script/script.js"></script>
+    </body>
+</html>
