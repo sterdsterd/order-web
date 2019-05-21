@@ -51,7 +51,7 @@ function showNotification() {
             });
         }
     }); */
-
+/*
     Notification.requestPermission();
 
     var notification = new Notification('Notification title', {
@@ -63,12 +63,12 @@ function showNotification() {
         window.open('http://google.com');
     };
 
-
+*/
 }
 
 function order() {
     var tableNo = getParameterByName('tableNo');
-    var url = "/order/result/?tableNo=" + tableNo;
+    var url = "/result/?tableNo=" + tableNo;
     if (tableNo.length === 0) {
         alert("테이블 번호가 누락되었습니다.");
         return;
