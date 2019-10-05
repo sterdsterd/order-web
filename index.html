@@ -10,18 +10,27 @@
         <link href="https://cdn.jsdelivr.net/gh/mailtoharshit/San-Francisco-Font-/sanfrancisco.css" rel="stylesheet">
         <script type="text/javascript" src="/script/jquery-3.4.1.min.js"></script>
         <script>
-            function notify() {
-                var xhr = new XMLHttpRequest();
-                xhr.open("POST", "https://fcm.googleapis.com/fcm/send", true);
-                xhr.setRequestHeader('Content-Type', 'application/json');
-                xhr.setRequestHeader('Authorization', 'key=AAAAZalRFdA:APA91bGj9GJVQwhD8U-Fv-5x0PoRkVJsK-8CUWuJpmY-wLmuzs3gcizLtYR8femHv9_NGc8Yo4WFoE9fHilsacXRGvI-jTocYcnfoDc8anqFQUhmGMxvhCbrNyyhVKhC9C9nlUE5q3fv');
-                xhr.send(JSON.stringify({
-                    data: {
-                        title: getParameterByName('tableNo') + "번 테이블이 호출 중입니다.",
-                        body: "야호야호"
-                    },
-                    to: "/topics/all"
-                }));
+            function getParameterByName(name) {
+                name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+                var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                    results = regex.exec(location.search);
+                return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+            }
+
+            window.onload = function() {
+                document.getElementById("notify").onclick = function fun() {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "https://fcm.googleapis.com/fcm/send", true);
+                    xhr.setRequestHeader('Content-Type', 'application/json');
+                    xhr.setRequestHeader('Authorization', 'key=AAAAZalRFdA:APA91bGj9GJVQwhD8U-Fv-5x0PoRkVJsK-8CUWuJpmY-wLmuzs3gcizLtYR8femHv9_NGc8Yo4WFoE9fHilsacXRGvI-jTocYcnfoDc8anqFQUhmGMxvhCbrNyyhVKhC9C9nlUE5q3fv');
+                    xhr.send(JSON.stringify({
+                        data: {
+                            title: getParameterByName('tableNo') + "번 테이블이 호출 중입니다.",
+                            body: "야호야호"
+                        },
+                        to: "/topics/all"
+                    }));
+                }
             }
         </script>
     </head>
@@ -31,7 +40,7 @@
             <div>
                 <span id="title">ORDER</span>
             </div>
-            <i class="material-icons" onclick="notify()">
+            <i class="material-icons" id="notify">
                 notifications
             </i>
         </header>
