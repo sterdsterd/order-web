@@ -62,7 +62,7 @@ function order() {
                 }
             }
         });
-        console.log("F -> " + url);
+        console.log("F -> " + c + " / " + url);
     });
 
     if (c) window.location.replace(url);
