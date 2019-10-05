@@ -88,7 +88,7 @@
                     var data = JSON.parse(orderdata);
                     var rightNow = new Date();
                     var res = rightNow.toISOString().slice(0, 10).replace(/-/g, "");
-                    console.log(res);
+                    console.log(res + "/" + Math.round(+new Date / 1e3).toString());
                     console.log(data);
                     firebase.firestore().collection(res.toString()).doc(Math.round(+new Date / 1e3).toString()).set(data);
                     document.getElementById("tableNo").innerHTML = getParameterByName('tableNo') + "번";
