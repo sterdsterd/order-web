@@ -39,38 +39,7 @@ window.onload = function() {
     document.all("title").innerHTML = "TABLE No " + getParameterByName('tableNo');
     firebase.initializeApp(config);
     show();
-
-    showNotification();
 };
-
-function showNotification() {
-    /* navigator.serviceWorker.register('sw.js')
-
-    Notification.requestPermission(function(result) {
-        if (result === 'granted') {
-            navigator.serviceWorker.ready.then(function(registration) {
-                registration.showNotification('Vibration Sample', {
-                    body: 'Buzz! Buzz!',
-                    vibrate: [200, 100, 200, 100, 200, 100, 200],
-                    tag: 'vibration-sample'
-                });
-            });
-        }
-    }); */
-/*
-    Notification.requestPermission();
-
-    var notification = new Notification('Notification title', {
-        icon: 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
-        body: 'Notification text',
-    });
-
-    notification.onclick = function () {
-        window.open('http://google.com');
-    };
-
-*/
-}
 
 function order() {
     var tableNo = getParameterByName('tableNo');
@@ -80,13 +49,21 @@ function order() {
         return;
     }
     var c = false;
-    for (var i = 1; i <= last; i++) {
-        if (document.getElementById("item" + i))
-            if (document.getElementById("item" + i).value !== 0) {
-                c = true;
-                url += "&qt" + i + "=" + document.getElementById("item" + i).value;
+
+
+    firebase.firestore().collection("menuList").onSnapshot(function(querySnapshot) {
+        querySnapshot.forEach(function(childSnapshot) {
+            idid = childSnapshot.id;
+            if (document.getElementById("item" + idid)) {
+                if (document.getElementById("item" + idid).value !== 0) {
+                    c = true;
+                    url += "&qt" + i + "=" + document.getElementById("item" + i).value;
+                }
+                console.log(price);
             }
-    }
+        });
+    });
+
     if (c) window.location.replace(url);
     else alert("메뉴를 선택하세요");
 };
