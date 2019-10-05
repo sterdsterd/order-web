@@ -58,7 +58,7 @@ function order() {
                 if (document.getElementById("item" + idid).value !== 0) {
                     console.log("2 -> " + idid);
                     c = true;
-                    url += "&qt" + i + "=" + document.getElementById("item" + i).value;
+                    url += "&qt" + idid + "=" + document.getElementById("item" + idid).value;
                 }
             }
         });
