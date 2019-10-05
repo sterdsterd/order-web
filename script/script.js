@@ -27,8 +27,8 @@ function getPrice() {
                 console.log(price);
             }
         });
+        document.getElementById("price").innerHTML = "￦" + numFormat(price);
     });
-    document.all("price").innerHTML = "￦" + numFormat(price);
 }
 
 function numFormat(x) {

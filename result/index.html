@@ -49,46 +49,43 @@
 
                 var sum = 0;
 
-                var urlRef = firebase.database().ref().child("menuList");
-
                 var orderdata = '{ "tableNo" : ' + getParameterByName('tableNo') + ', "time" : "' + time + '", ';
 
                 var notidata = "";
 
-                var last = 0;
-                urlRef.once("value", function(snapshot) {
-                    snapshot.forEach(function (childSnapshot) {
-                        var data = childSnapshot.val();
-                        last = data.id;
 
-                        if(getParameterByName("qt" + last) != 0) {
+                firebase.firestore().collection("menuList").onSnapshot(function(querySnapshot) {
+                    querySnapshot.forEach(function (childSnapshot) {
+                        idid = childSnapshot.id;
+
+                        if(getParameterByName("qt" + idid) != 0) {
                             var name = document.createElement("h3");
-                            name.innerText = data.name;
+                            name.innerText = childSnapshot.data()["name"];
                             name.className = "name";
                             var price = document.createElement("h3");
-                            price.innerText = "￦" + numFormat(data.price);
+                            price.innerText = "￦" + numFormat(childSnapshot.data()["price"]);
                             var qt = document.createElement("h3");
-                            qt.innerText = getParameterByName("qt" + last);
+                            qt.innerText = getParameterByName("qt" + idid);
                             qt.className = "quantity";
 
-                            notidata += data.name + " " + getParameterByName("qt" + last) + "개,\n";
+                            notidata += childSnapshot.data()["name"] + " " + getParameterByName("qt" + idid) + "개,\n";
 
                             document.getElementById('list').appendChild(name);
                             document.getElementById('list').appendChild(price);
                             document.getElementById('list').appendChild(qt);
 
-                            sum += Number(data.price) * Number(getParameterByName("qt" + last));
+                            sum += Number(childSnapshot.data()["price"]) * Number(getParameterByName("qt" + idid));
 
                             console.log(sum);
-                            orderdata += '"qt' + last + '" : ' + getParameterByName("qt" + last) + ', ';
+                            orderdata += '"qt' + idid + '" : ' + getParameterByName("qt" + idid) + ', ';
                         }
-                        document.all("sumPrice").innerHTML = "￦" + numFormat(sum);
+                        document.getElementById("sumPrice").innerHTML = "￦" + numFormat(sum);
                     });
                     orderdata += '"total" : ' + sum + ' }';
                     var data = JSON.parse(orderdata);
-                    firebase.database().ref('orderQueue/' + Math.round(+new Date / 1e3)).set(data);
-                    document.all("tableNo").innerHTML = getParameterByName('tableNo') + "번";
-                    document.all("orderTime").innerHTML = time;
+                    firebase.firestore().collection("menuList").doc(Math.round(+new Date / 1e3)).set(data);
+                    document.getElementById("tableNo").innerHTML = getParameterByName('tableNo') + "번";
+                    document.getElementById("orderTime").innerHTML = time;
 
                     var xhr = new XMLHttpRequest();
                     xhr.open("POST", "https://fcm.googleapis.com/fcm/send", true);
