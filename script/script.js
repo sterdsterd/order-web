@@ -18,10 +18,16 @@ function getParameterByName(name) {
 
 function getPrice() {
     var price = 0;
-    for (var i = 1; i <= last; i++) {
-        if (document.getElementById("item" + i))
-            price += Number(document.getElementById("item" + i).value) * Number(document.getElementById("price" + i).textContent.replace(/[^0-9]/g, ""));
-    }
+    firebase.firestore().collection("menuList").onSnapshot(function(querySnapshot) {
+        querySnapshot.forEach(function(childSnapshot) {
+            idid = childSnapshot.id;
+            if (document.getElementById("menu" + idid)) {
+                price += Number(document.getElementById("item" + idid).value) * Number(document.getElementById("price" + idid).textContent.replace(/[^0-9]/g, ""));
+
+                console.log(price);
+            }
+        });
+    });
     document.all("price").innerHTML = "￦" + numFormat(price);
 }
 
@@ -86,14 +92,11 @@ function order() {
 };
 
 function show() {
-    var urlRef = firebase.database().ref().child("menuList");
+    var db = firebase.firestore();
 
-    urlRef.on("value", function(snapshot) {
-        document.getElementById("main").innerHTML = "";
-        snapshot.forEach(function(childSnapshot) {
-            var data = childSnapshot.val();
-
-            last = data.id;
+    db.collection("menuList").onSnapshot(function(querySnapshot) {
+        querySnapshot.forEach(function(childSnapshot) {
+            last = childSnapshot.id;
 
             var div = document.createElement("div");
             var img = document.createElement('img');
@@ -113,10 +116,10 @@ function show() {
             t.style.margin = "auto 0";
 
             var name = document.createElement("h3");
-            name.innerText = data.name;
+            name.innerText = childSnapshot.data()["name"];
             name.id = "menu" + last;
             var price = document.createElement("p");
-            price.innerText = "￦" + numFormat(data.price);
+            price.innerText = "￦" + numFormat(childSnapshot.data()["price"]);
             price.id = "price" + last;
 
             var stpouter = document.createElement("div");
@@ -138,10 +141,12 @@ function show() {
             info.appendChild(stpouter);
             div.appendChild(img);
             div.appendChild(info);
+
             document.getElementById('main').appendChild(div);
         });
         stepper();
-    });
+    })
+
 }
 
 function stepper() {
