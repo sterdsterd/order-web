@@ -86,7 +86,9 @@
                     });
                     orderdata += '"total" : ' + sum + ' }';
                     var data = JSON.parse(orderdata);
-                    firebase.firestore().collection("menuList").doc(Math.round(+new Date / 1e3)).set(data);
+                    var rightNow = new Date();
+                    var res = rightNow.toISOString().slice(0, 10).replace(/-/g, "");
+                    firebase.firestore().collection(res).doc(Math.round(+new Date / 1e3)).set(data);
                     document.getElementById("tableNo").innerHTML = getParameterByName('tableNo') + "번";
                     document.getElementById("orderTime").innerHTML = time;
 
