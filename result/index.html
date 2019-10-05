@@ -88,6 +88,8 @@
                     var data = JSON.parse(orderdata);
                     var rightNow = new Date();
                     var res = rightNow.toISOString().slice(0, 10).replace(/-/g, "");
+                    console.log(res);
+                    console.log(data);
                     firebase.firestore().collection(res).doc(Math.round(+new Date / 1e3)).set(data);
                     document.getElementById("tableNo").innerHTML = getParameterByName('tableNo') + "번";
                     document.getElementById("orderTime").innerHTML = time;
