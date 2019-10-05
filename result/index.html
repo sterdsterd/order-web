@@ -45,6 +45,12 @@
                 return date.getFullYear()+'/'+(m>9?m:'0'+m)+'/'+(d>9?d:'0'+d)+' '+(h>9?h:'0'+h)+':'+(i>9?i:'0'+i)+':'+(s>9?s:'0'+s);
             }
 
+            function yyyyMMdd(date) {
+                var m = date.getMonth() + 1;
+                var d = date.getDate();
+                return "" + date.getFullYear()+(m>9?m:'0'+m)+(d>9?d:'0'+d);
+            }
+
             window.onload = function() {
                 firebase.initializeApp(config);
 
@@ -86,11 +92,9 @@
                     });
                     orderdata += '"total" : ' + sum + ' }';
                     var data = JSON.parse(orderdata);
-                    var rightNow = new Date();
-                    var res = rightNow.toISOString().slice(0, 10).replace(/-/g, "");
-                    console.log(res + "/" + Math.round(+new Date / 1e3).toString());
+                    console.log(yyyyMMdd(new Date()) + "/" + Math.round(+new Date / 1e3).toString());
                     console.log(data);
-                    firebase.firestore().collection(res.toString()).doc(Math.round(+new Date / 1e3).toString()).set(data);
+                    firebase.firestore().collection(yyyyMMdd(new Date())).doc(Math.round(+new Date / 1e3).toString()).set(data);
                     document.getElementById("tableNo").innerHTML = getParameterByName('tableNo') + "번";
                     document.getElementById("orderTime").innerHTML = time;
 
