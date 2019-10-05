@@ -71,6 +71,7 @@ function show() {
     var db = firebase.firestore();
 
     db.collection("menuList").onSnapshot(function(querySnapshot) {
+        document.getElementById("main").innerHTML = "";
         querySnapshot.forEach(function(childSnapshot) {
             last = childSnapshot.id;
 
