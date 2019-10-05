@@ -17,20 +17,18 @@
                 return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
             }
 
-            window.onload = function() {
-                document.getElementById("notify").onclick = function fun() {
-                    var xhr = new XMLHttpRequest();
-                    xhr.open("POST", "https://fcm.googleapis.com/fcm/send", true);
-                    xhr.setRequestHeader('Content-Type', 'application/json');
-                    xhr.setRequestHeader('Authorization', 'key=AAAAZalRFdA:APA91bGj9GJVQwhD8U-Fv-5x0PoRkVJsK-8CUWuJpmY-wLmuzs3gcizLtYR8femHv9_NGc8Yo4WFoE9fHilsacXRGvI-jTocYcnfoDc8anqFQUhmGMxvhCbrNyyhVKhC9C9nlUE5q3fv');
-                    xhr.send(JSON.stringify({
-                        data: {
-                            title: getParameterByName('tableNo') + "번 테이블이 호출 중입니다.",
-                            body: "야호야호"
-                        },
-                        to: "/topics/all"
-                    }));
-                }
+            function notification() {
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "https://fcm.googleapis.com/fcm/send", true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.setRequestHeader('Authorization', 'key=AAAAZalRFdA:APA91bGj9GJVQwhD8U-Fv-5x0PoRkVJsK-8CUWuJpmY-wLmuzs3gcizLtYR8femHv9_NGc8Yo4WFoE9fHilsacXRGvI-jTocYcnfoDc8anqFQUhmGMxvhCbrNyyhVKhC9C9nlUE5q3fv');
+                xhr.send(JSON.stringify({
+                    data: {
+                        title: getParameterByName('tableNo') + "번 테이블이 호출 중입니다.",
+                        body: "야호야호"
+                    },
+                    to: "/topics/all"
+                }));
             }
         </script>
     </head>
@@ -39,9 +37,11 @@
         <header class="navbar">
             <div>
                 <span id="title">ORDER</span>
-                <i style="text-align: right;" class="material-icons" id="notify">
-                    notifications  
-                </i>
+                <button class="notify" onclick="notification()" style="text-align: right;">
+                    <i class="material-icons">
+                        notifications  
+                    </i>
+                </button>
             </div>
         </header>
 

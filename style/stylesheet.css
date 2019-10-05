@@ -128,6 +128,14 @@ header i{
     padding: 0.45em;
 }
 
+.notify {
+    color: #fff;
+    border: 0;
+    padding: 0em;
+    margin: 0;
+    background: #2B3042;
+}
+
 .order {
     color: #fff;
     font-size: 1.7em;
