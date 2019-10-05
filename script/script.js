@@ -50,16 +50,16 @@ function order() {
     }
     var c = false;
 
-
     firebase.firestore().collection("menuList").onSnapshot(function(querySnapshot) {
         querySnapshot.forEach(function(childSnapshot) {
             idid = childSnapshot.id;
             if (document.getElementById("item" + idid)) {
+                console.log("1 -> " + idid);
                 if (document.getElementById("item" + idid).value !== 0) {
+                    console.log("2 -> " + idid);
                     c = true;
                     url += "&qt" + i + "=" + document.getElementById("item" + i).value;
                 }
-                console.log(price);
             }
         });
     });
