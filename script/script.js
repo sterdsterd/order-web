@@ -62,11 +62,9 @@ function order() {
                 }
             }
         });
-        console.log("F -> " + c + " / " + url);
+        if (c) window.location.replace(url);
+        else alert("메뉴를 선택하세요");
     });
-
-    if (c) window.location.replace(url);
-    else alert("메뉴를 선택하세요");
 };
 
 function show() {
