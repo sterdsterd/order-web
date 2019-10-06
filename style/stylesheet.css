@@ -6,9 +6,24 @@ body{
     word-break: keep-all;
 }
 
+desc div{
+    background: #FFF;
+    border: 1px solid #ccc;
+    border-radius: 0.2em;
+    margin: 1em 1em 0 1em;
+    box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.04);
+    display: grid;
+}
+
+desc div h3, p {
+    margin: 0;
+    line-height: 1.5em;
+}
+
 main {
     padding-bottom: 5.5em;
 }
+
 main div{
     background: #FFF;
     border: 1px solid #ccc;
