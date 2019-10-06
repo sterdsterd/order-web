@@ -31,7 +31,6 @@ main div{
     margin: 1em 1em 0 1em;
     box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.04);
     display: grid;
-    grid-template-columns: 0fr 1fr;
 }
 
 main .success{
