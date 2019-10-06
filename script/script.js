@@ -104,12 +104,12 @@ function show() {
             name.id = "menu" + last;
             t.appendChild(name);
 
-            if (childSnapshot.data()["price"].length !== 0) {
-                var desc = document.createElement("p");
-                desc.innerText = childSnapshot.data()["desc"];
-                desc.id = "desc" + last;
+
+            var desc = document.createElement("p");
+            desc.innerText = childSnapshot.data()["desc"];
+            desc.id = "desc" + last;
+            if (desc.innerText !== "undefined")
                 t.appendChild(desc);
-            }
 
             var price = document.createElement("p");
             price.innerText = "￦" + numFormat(childSnapshot.data()["price"]);
