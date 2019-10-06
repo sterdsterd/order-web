@@ -102,9 +102,19 @@ function show() {
             var name = document.createElement("h3");
             name.innerText = childSnapshot.data()["name"];
             name.id = "menu" + last;
+            t.appendChild(name);
+
+            if (childSnapshot.data()["price"].length !== 0) {
+                var desc = document.createElement("p");
+                desc.innerText = childSnapshot.data()["desc"];
+                desc.id = "desc" + last;
+                t.appendChild(desc);
+            }
+
             var price = document.createElement("p");
             price.innerText = "￦" + numFormat(childSnapshot.data()["price"]);
             price.id = "price" + last;
+            t.appendChild(price);
 
             var stpouter = document.createElement("div");
             stpouter.className = "quantity";
@@ -118,8 +128,6 @@ function show() {
             stp.step = "0";
             stp.value = "0";
 
-            t.appendChild(name);
-            t.appendChild(price);
             info.appendChild(t);
             stpouter.appendChild(stp);
             info.appendChild(stpouter);
