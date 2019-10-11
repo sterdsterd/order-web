@@ -84,8 +84,8 @@ function show() {
 
             var div = document.createElement("div");
             var img = document.createElement('img');
-            img.style.margin = "1em";
-            img.style.height = "5em";
+            img.style.margin = "auto 0.8em auto 1em";
+            img.style.maxWidth = "6em";
 
 
             var storageRef = firebase.storage().ref().child("img").child(last + ".png");
@@ -101,23 +101,27 @@ function show() {
 
             var name = document.createElement("h3");
             name.innerText = childSnapshot.data()["name"];
+            name.style.margin = "1em 0px 0px 0px";
             name.id = "menu" + last;
             t.appendChild(name);
 
             if (childSnapshot.data()["price"].length !== 0) {
                 var desc = document.createElement("p");
                 desc.innerText = childSnapshot.data()["desc"];
+                desc.style.margin = "0px 0px 0.25em 0px";
                 desc.id = "desc" + last;
                 t.appendChild(desc);
             }
 
             var price = document.createElement("p");
             price.innerText = "￦" + numFormat(childSnapshot.data()["price"]);
+            price.style.margin = "0px 0px 1em 0px";
             price.id = "price" + last;
             t.appendChild(price);
 
             var stpouter = document.createElement("div");
             stpouter.className = "quantity";
+            stpouter.style.margin = "0px 0px 0px 1em";
 
             var stp = document.createElement("input");
             stp.type = "number";
