@@ -72,7 +72,7 @@ function show() {
 
     db.collection("description").onSnapshot(function(querySnapshot) {
       querySnapshot.forEach(function (childSnapshot) {
-          document.getElementById("descHeader").innerHTML = "<i class=\"material-icons\">info</i>" + childSnapshot.data()["head"];
+          document.getElementById("descHeader").innerHTML = "<i class=\"material-icons\">info  </i>" + childSnapshot.data()["head"];
           document.getElementById("descBody").innerText = childSnapshot.data()["body"];
       })
     })
